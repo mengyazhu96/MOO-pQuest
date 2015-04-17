@@ -12,4 +12,9 @@ Code and Data Acknowledgments
 * Crime data from http://maps.nyc.gov/crime/, extracted to JSON format from http://thomaslevine.com/!/nyc-crime-map/.
 * Routing algorithm is Pyroute, https://wiki.openstreetmap.org/wiki/Pyroute.
 
+Algorithm Breakdown
+-------------------
+* Crime data is in crimedata.geojson. We parse this into a Python dictionary in parsedata.py, which outputs crimedict.txt (in pickle format). 
+* This dictionary is then read into insertcrime.py, which adds a crime tag to either nodes or ways (unimplemented). OSM data (small test area) is in data.osm. insertcrime.py parses the OSM data through the ElementTree XML API.
+* We then modify Pyroute to account for the new weights (pyroute/weights.py).
 
