@@ -5,7 +5,7 @@
 import json
 import pickle
 
-with open('test.geojson') as data_file:    
+with open('crimedata.geojson') as data_file:    
     data = json.load(data_file)
     
 crimedict = {}
