@@ -5,7 +5,7 @@
 import json
 import pickle
 
-with open('crimedata.geojson') as data_file:    
+with open('test.geojson') as data_file:    
     data = json.load(data_file)
     
 crimedict = {}
@@ -18,7 +18,18 @@ for crime in crimes:
     # CR can be: MURDER, RAPE, ROBBERY, FELONY ASSAULT, BURGLARY, GRAND LARCENY, 
         # GRAND LARCENY OF MOTOR VEHICLE
     
-    # crimedict[(lat,long)] = something
+    # gets the list containing lat/long coordinates - note that they are backwards
+    pos = (crime['geometry']['coordinates'][1],crime['geometry']['coordinates'][0])
+    
+    # gets the dictionary of the crime's properties
+    properties = crime['properties']
+    
+    if pos in crimedict:
+        val = crimedict[pos]
+        val.append(properties)
+        crimedict[pos] = val
+    else:
+        crimedict[pos] = [properties]
     # keep CR as string so that we can potentially change their weights later
     
 output = open('crimedict.txt', 'ab+')
