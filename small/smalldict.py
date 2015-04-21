@@ -1,4 +1,5 @@
-#filters the dictionary to only look at the bounds within Manhattan
+# filters the dictionary to only look at the bounds within a given OSM file.
+# command line inputs: 1) OSM file with bounds 2) name of .txt file to be outputted
 
 import json
 import pickle
