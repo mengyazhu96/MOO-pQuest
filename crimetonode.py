@@ -1,6 +1,6 @@
-# insertcrime.py
+# nodetoway.py
 #
-# takes in an OSM file, inserts a crime parameter into [NODES WAYS OR RELATIONS], [gets rid of superfluous attributes and tags,] outputs an [XML OR OSM] file
+# takes in an OSM file, inserts a crime parameter into NODES and outputs an [XML OR OSM] file
 
 import xml.etree.ElementTree as ET
 import pickle
