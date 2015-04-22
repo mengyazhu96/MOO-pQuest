@@ -7,15 +7,15 @@ import pickle
 import sys
 
 # get dictionary of crime data
-output = open('smalldict.txt', 'rb')
-crimedict = pickle.load(output)
+#output = open('smalldict.txt', 'rb')
+#crimedict = pickle.load(output)
 # maybe separate into separate dictionaries?
 
 tree = ET.parse('small.osm')
 root = tree.getroot()
 
 def comp_coords(crime,osm):
-    return abs(crime - osm) < 10 ** -6
+    return abs(crime - osm) < 10 ** -4
 
 for child in root:
     if child.tag == 'node':
@@ -25,7 +25,6 @@ for child in root:
         for (lati,longi),val in crimedict.items():
             # compare approxes and exacts of coordinates
             if int(lati) == int(lat) and int(longi) == int(lon):
-            	print int(lat),int(long)
                 if comp_coords(lati,lat) and comp_coords(longi,lon):
                     for crime in val:
                         ET.SubElement(child,'tag',{'crime':crime['CR']})

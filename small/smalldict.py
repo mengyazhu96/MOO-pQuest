@@ -9,9 +9,9 @@ import sys
 with open('../crimedata.geojson') as data_file:    
     data = json.load(data_file)
 
-osm = sys.argv[1]
-txt = sys.argv[2] 
-tree = ET.parse(osm)
+#osm = sys.argv[1]
+#txt = sys.argv[2] 
+tree = ET.parse('small.osm')
 bounds = tree.getroot()[0].attrib
 minlat = float(bounds['minlat'])
 maxlat = float(bounds['maxlat'])
