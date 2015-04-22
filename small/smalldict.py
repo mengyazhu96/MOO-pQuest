@@ -9,9 +9,9 @@ import sys
 with open('../crimedata.geojson') as data_file:    
     data = json.load(data_file)
 
-#osm = sys.argv[1]
-#txt = sys.argv[2] 
-tree = ET.parse('small.osm')
+osm = sys.argv[1]
+txt = sys.argv[2] 
+tree = ET.parse(osm)
 bounds = tree.getroot()[0].attrib
 minlat = float(bounds['minlat'])
 maxlat = float(bounds['maxlat'])
@@ -42,7 +42,7 @@ for crime in crimes:
         else:
             crimedict[pos] = [properties]
 
-#output = open(txt, 'ab+')
+output = open(txt, 'ab+')
 
-#pickle.dump(crimedict, output)
-#output.close()
+pickle.dump(crimedict, output)
+output.close()
