@@ -25,9 +25,11 @@ for child in root:
         for (lati,longi),val in crimedict.items():
             # compare approxes and exacts of coordinates
             if int(lati) == int(lat) and int(longi) == int(lon):
+            	print int(lat),int(long)
                 if comp_coords(lati,lat) and comp_coords(longi,lon):
                     for crime in val:
                         ET.SubElement(child,'tag',{'crime':crime['CR']})
                         # should we stop the loop? (break)
-                
+                    print val
+
 tree.write('smallcrime.osm')
