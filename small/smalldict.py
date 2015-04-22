@@ -10,14 +10,13 @@ with open('../crimedata.geojson') as data_file:
     data = json.load(data_file)
 
 osm = sys.argv[1]
-txt = sys.argv[2]
+txt = sys.argv[2] 
 tree = ET.parse(osm)
 bounds = tree.getroot()[0].attrib
-minlat = bounds['minlat']
-maxlat = bounds['maxlat']
-minlon = bounds['minlon']
-maxlon = bounds['maxlon']
-
+minlat = float(bounds['minlat'])
+maxlat = float(bounds['maxlat'])
+minlon = float(bounds['minlon'])
+maxlon = float(bounds['maxlon'])
 
 crimedict = {}
 crimes = data['features']
@@ -31,7 +30,7 @@ for crime in crimes:
     
     # gets the list containing lat/long coordinates - note that they are backwards
     pos = (crime['geometry']['coordinates'][1],crime['geometry']['coordinates'][0])
-    print pos,pos[0] >= minlat, pos[0] <= maxlat, pos[1] >= minlon, pos[1] <= maxlon
+    
     if pos[0] >= minlat and pos[0] <= maxlat and pos[1] >= minlon and pos[1] <= maxlon:
         # gets the dictionary of the crime's properties
         properties = crime['properties']
@@ -43,8 +42,6 @@ for crime in crimes:
         else:
             crimedict[pos] = [properties]
 
-print minlat,maxlat,minlon,maxlon
-    
 #output = open(txt, 'ab+')
 
 #pickle.dump(crimedict, output)
