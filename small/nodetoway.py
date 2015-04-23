@@ -41,7 +41,7 @@ for way in ways:
                 
                 # if the node ids match, add a crime tag to the way for each crime at the node
                 for crime in nodedict[nodeid]:
-                    ET.SubElement(way,'tag',{'crime':crime})
+                    ET.SubElement(way,'tag',{'k':'crime','v':crime})
 
 # write to our final OSM file
 tree.write('smallway.osm')
