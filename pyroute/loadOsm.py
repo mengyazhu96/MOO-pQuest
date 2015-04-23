@@ -166,6 +166,10 @@ class LoadOsm(handler.ContentHandler):
       highway = self.equivalent(self.tags.get('highway', ''))
       railway = self.equivalent(self.tags.get('railway', ''))
       oneway = self.tags.get('oneway', '')
+      crimes = []
+      for k in self.tags:
+          if 'crime' in k:
+              crimes.append(self.tags[k])
       reversible = not oneway in('yes','true','1')
     
       # Calculate what vehicles can use this route
@@ -184,6 +188,9 @@ class LoadOsm(handler.ContentHandler):
           for routeType in self.routeTypes:
             if(access[routeType]):
               weight = getWeight(routeType, highway)
+              if routeType == 'cycle' or routeType == 'foot':
+                    for crime in crimes:
+                        weight = weight * getCrimeWeight(crime)
               self.addLink(last, i, routeType, weight)
               if reversible or routeType == 'foot':
                 self.addLink(i, last, routeType, weight)
