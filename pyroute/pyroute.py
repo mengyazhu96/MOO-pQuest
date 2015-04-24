@@ -293,5 +293,6 @@ parser.setContentHandler(obj)
 parser.parse(sys.argv[1])
 print "Routing..."
 # Do routing between the two specified nodes
+
 obj.doRouting(int(sys.argv[2]), int(sys.argv[3]))
 

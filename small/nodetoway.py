@@ -37,7 +37,7 @@ for way in ways:
         
         # check each crime node against the nodes in the way
         for nd in nds:
-            if int(nd.attrib['ref']) == nodeid:
+            if nd.attrib['ref'] == nodeid:
                 
                 # if the node ids match, add a crime tag to the way for each crime at the node
                 for i in range(len(nodedict[nodeid])):

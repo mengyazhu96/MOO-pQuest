@@ -23,7 +23,6 @@ nodes = root.findall('node')
 # initialize our output dictionary
 nodedict = {}
 
-""" LOOOK HEEEEEERRRREEEEEEEEEEE """
 # defines a float comparison function: each of the latitude and longitude coordinates
 #    must be within 10^-4 degrees (about 0.0069 miles or 36 feet), so within a 
 #    36ft by 36ft square
@@ -34,7 +33,7 @@ def comp_coords(crime,osm):
 for node in nodes:
     
     # get the id and coordinates of node
-    id = int(node.attrib['id'])
+    id = node.attrib['id']
     lat = float(node.attrib['lat'])
     lon = float(node.attrib['lon'])
     
