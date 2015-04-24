@@ -67,8 +67,9 @@ class Router:
     # Start by queueing all outbound links from the start node
     blankQueueItem = {'end':-1,'distance':0,'nodes':str(start)}
     try:
-      for i, weight in self.data.routing[transport][start].items():
-        self.addToQueue(start,i, blankQueueItem, weight)
+        print self.data.routing[transport][start]
+        for i, weight in self.data.routing[transport][start].items():
+            self.addToQueue(start,i, blankQueueItem, weight)
     except KeyError:
       return('no_such_node',[])
     

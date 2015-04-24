@@ -37,6 +37,6 @@ CrimeWeights = {
 
 def getCrimeWeight(crimeType):
     try:
-        return(CrimeWeights[crimeType])
+        return CrimeWeights[crimeType]
     except KeyError:
         return(0)
