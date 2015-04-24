@@ -169,7 +169,8 @@ class LoadOsm(handler.ContentHandler):
       crimes = []
       for k in self.tags:
           if 'crime' in k:
-              crimes.append(self.tags[k])
+                crime = ''.join([i for i in self.tags[k] if not i.isdigit()])
+                crimes.append(self.tags[k])
       reversible = not oneway in('yes','true','1')
     
       # Calculate what vehicles can use this route

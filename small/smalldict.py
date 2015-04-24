@@ -33,7 +33,9 @@ crimedict = {}
 crimes = data['features']
 
 # iterate through the geoJSON data
-for crime in crimes:
+for i in range(len(crimes)):
+    crime = crimes[i]
+
     # A crime has geometry, type, and properties
     # type: always Feature, can ignore
     # geometry: includes coordinates of the point: DOES [LONG, LAT] (counterintuitive)
@@ -49,6 +51,7 @@ for crime in crimes:
         
         # gets the dictionary of the crime's properties
         properties = crime['properties']
+        properties['id'] = i
         
         # if this coordinate is already in our dict (if more than one crime has occurred here)
         if pos in crimedict:
@@ -63,4 +66,4 @@ output = open(txt, 'ab+')
 pickle.dump(crimedict, output)
 output.close()
 
-# next step: crimetonode2.py
+# next step: crimetonode.py

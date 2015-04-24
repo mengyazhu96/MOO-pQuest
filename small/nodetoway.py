@@ -5,24 +5,29 @@
 # takes in our nodedict and matches nodes to the ways they are in, inserting crimes into 
 #     a way if a crime node is in it; returns our final OSM data, smallway.osm
 #
+# command line inputs: 1) node dictionary dump file 2) OSM data set 3) output OSM file
+#         for small:    1) nodedict.txt    2) small.osm            3) smallway.osm
+# for small: 1) smalldict.txt 2) small.som 3) nodedict.txt
+#
 # final product: 
 #     <way blahblahblah>
 #        <nd ref='the node id'>
 #            and the rest of its nodes
 #        <tag uselesstags>
-#        <tag crime='CRIME TYPE'>
+#        <tag k = 'crime0' v = 'CRIME TYPE, id'>
 #        <tag crime='CRIME TYPE'>
 #     </way>
 
 import pickle
 import xml.etree.ElementTree as ET
+import sys
 
 # open our nodedict
-output = open('nodedict.txt','rb')
+output = open(sys.argv[1],'rb')
 nodedict = pickle.load(output)
 
 # get all the ways from our OSM data set
-tree = ET.parse('small.osm')
+tree = ET.parse(sys.argv[2])
 root = tree.getroot()
 ways = root.findall('way')
 
@@ -41,7 +46,18 @@ for way in ways:
                 
                 # if the node ids match, add a crime tag to the way for each crime at the node
                 for i in range(len(nodedict[nodeid])):
-                    ET.SubElement(way,'tag',{'k':'crime' + str(i),'v': nodedict[nodeid][i]})
+                    crime = nodedict[nodeid][i][0] + ' ' + str(nodedict[nodeid][i][1])
+                    
+                    # checks to make sure exact crime not in tags already
+                    tags = way.findall('tag')
+                    repeat = False
+                    for tag in tags:
+                        if tag.attrib['v'] == crime:
+                            repeat = True
+                            break
+
+                    if not repeat:
+                        ET.SubElement(way,'tag',{'k':'crime' + str(i),'v': crime})
 
 # write to our final OSM file
-tree.write('smallway.osm')
+tree.write(sys.argv[3])
