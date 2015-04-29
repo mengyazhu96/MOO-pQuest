@@ -35,6 +35,7 @@ from util_binary import *
 from struct import *
 
 execfile(os.path.join(os.path.dirname(__file__), "weights.py"))
+execfile(os.path.join(os.path.dirname(__file__), "route.py"))
 
 class LoadOsm(handler.ContentHandler):
   """Parse an OSM file looking for routing information, and do routing with it"""
@@ -192,6 +193,7 @@ class LoadOsm(handler.ContentHandler):
               if routeType == 'cycle' or routeType == 'foot':
                     for crime in crimes:
                         weight *= CrimeWeights[crime]
+                        print CrimeWeights[crime]
               self.addLink(last, i, routeType, weight)
               if reversible or routeType == 'foot':
                 self.addLink(i, last, routeType, weight)
