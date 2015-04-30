@@ -35,6 +35,8 @@ import sys
 import math 
 from loadOsm import *
 
+#execfile(os.path.join(os.path.dirname(__file__), "gen_dict.py"))
+
 class Router:
   def __init__(self, data):
     self.data = data
@@ -129,44 +131,25 @@ class Router:
     else:
       self.queue.append(queueItem)
 
-CrimeWeights = {   
-    'GRAND LARCENY': 0.5,
-    'FELONY ASSAULT': 0.5,
-    'ROBBERY': 0.7,
-    'GRAND LARCENY OF MOTOR VEHICLE': 0.8,
-    'BURGLARY': 0.8,
-    'RAPE': 0.3,
-    'MURDER': 0.3
-}
 
 if __name__ == "__main__":
 
-    safety_input = int(raw_input('Please enter safety importance on a scale of 1 to 10: '))
-    if safety_input == 1:
-    	for k in CrimeWeights:
-    		CrimeWeights[k] = 1
-    elif safety_input > 1 and safety_input <= 10:
-    	crime_factor = (11. - safety_input) / 11.
-    	for k,v in CrimeWeights.items():
-    		print v, v*crime_factor
-    		CrimeWeights[k] = v * crime_factor
-    else:
-    	print "Not valid, using default values."
+	"""safety_input = int(raw_input('Please enter safety importance on a scale of 1 to 10: '))
 
+	CrimeWeights = weight_crime(safety_input)"""
 
-    data = LoadOsm(sys.argv[1])
-  
-    try:
-        transport = sys.argv[4]
-    except IndexError:
-        transport = 'cycle'
-        print "WARNING: No transport type specified, assuming \"%s\"" % transport
-  
-    router = Router(data)
-    result, route = router.doRouteAsLL(int(sys.argv[2]), int(sys.argv[3]), transport)
-  
-    if result == 'success':
-        print "Route: %s" % ",".join("%1.4f,%1.4f" % (i[0],i[1]) for i in route)
-    else:
-        print "Failed (%s)" % result
+	data = LoadOsm(sys.argv[1])
 
+	try:
+		transport = sys.argv[4]
+	except IndexError:
+		transport = 'cycle'
+		print "WARNING: No transport type specified, assuming \"%s\"" % transport
+
+	router = Router(data)
+	result, route = router.doRouteAsLL(int(sys.argv[2]), int(sys.argv[3]), transport)
+
+	if result == 'success':
+		print "Route: %s" % ",".join("%1.4f,%1.4f" % (i[0],i[1]) for i in route)
+	else:
+		print "Failed (%s)" % result

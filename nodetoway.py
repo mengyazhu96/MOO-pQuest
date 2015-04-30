@@ -7,7 +7,6 @@
 #
 # command line inputs: 1) node dictionary dump file 2) OSM data set 3) output OSM file
 #         for small:    1) nodedict.txt    2) small.osm            3) smallway.osm
-# for small: 1) smalldict.txt 2) small.som 3) nodedict.txt
 #
 # final product: 
 #     <way blahblahblah>
@@ -45,19 +44,19 @@ for way in ways:
             if nd.attrib['ref'] == nodeid:
                 
                 # if the node ids match, add a crime tag to the way for each crime at the node
-                for i in range(len(nodedict[nodeid])):
-                    crime = nodedict[nodeid][i][0] + ' ' + str(nodedict[nodeid][i][1])
+                for crime in nodedict[nodeid]:
+                    crimetag = crime[0] + ' ' + str(crime[1])
                     
                     # checks to make sure exact crime not in tags already
                     tags = way.findall('tag')
                     repeat = False
                     for tag in tags:
-                        if tag.attrib['v'] == crime:
+                        if tag.attrib['v'] == crimetag:
                             repeat = True
                             break
 
                     if not repeat:
-                        ET.SubElement(way,'tag',{'k':'crime' + str(i),'v': crime})
+                        ET.SubElement(way,'tag',{'k':'crime','v': crimetag})
 
 # write to our final OSM file
 tree.write(sys.argv[3])
