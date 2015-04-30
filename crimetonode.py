@@ -15,6 +15,7 @@ import xml.etree.ElementTree as ET
 import pickle
 import sys
 
+
 # get our crime data dictionary
 output = open(sys.argv[1], 'rb')
 crimedict = pickle.load(output)
