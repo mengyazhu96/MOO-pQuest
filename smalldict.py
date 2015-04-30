@@ -8,7 +8,7 @@
 #             for us:    small.osm                smalldict.txt
 
 import json
-import pickle
+import cPickle as pickle
 import xml.etree.ElementTree as ET
 import sys
 
