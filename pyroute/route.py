@@ -132,17 +132,13 @@ class Router:
       self.queue.append(queueItem)
 
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
 
-	"""safety_input = int(raw_input('Please enter safety importance on a scale of 1 to 10: '))
+#	data = LoadOsm(sys.argv[1])
 
-	CrimeWeights = weight_crime(safety_input)"""
-
-	data = LoadOsm(sys.argv[1])
-
-	try:
-		transport = sys.argv[4]
-	except IndexError:
+#	try:
+#		transport = sys.argv[4]
+#	except IndexError:
 		transport = 'cycle'
 		print "WARNING: No transport type specified, assuming \"%s\"" % transport
 

@@ -31,10 +31,15 @@ import sys
 import os
 from xml.sax import make_parser, handler
 import xml
+import cPickle as pickle
 from util_binary import *
 from struct import *
 
 execfile(os.path.join(os.path.dirname(__file__), "weights.py"))
+
+# get our crime weights dictionary
+output = open('crimeweights.txt', 'rb')
+CrimeWeights = pickle.load(output)
 
 class LoadOsm(handler.ContentHandler):
   """Parse an OSM file looking for routing information, and do routing with it"""

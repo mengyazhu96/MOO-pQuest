@@ -17,7 +17,7 @@
 #        <tag crime='CRIME TYPE'>
 #     </way>
 
-import pickle
+import cPickle as pickle
 import xml.etree.ElementTree as ET
 import sys
 

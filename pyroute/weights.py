@@ -24,13 +24,3 @@ def getWeight(transport, wayType):
   except KeyError:
     # Default: if no weighting is defined, then assume it can't be routed
     return(0)
-
-CrimeWeights = {   
-    'GRAND LARCENY': 0.7,
-    'FELONY ASSAULT': 0.7,
-    'ROBBERY': 0.8,
-    'GRAND LARCENY OF MOTOR VEHICLE': 0.9,
-    'BURGLARY': 0.9,
-    'RAPE': 0.5,
-    'MURDER': 0.5
-}

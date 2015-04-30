@@ -12,7 +12,7 @@
 # final product: nodedict[nodeid] = [list of crimes (only their types)]
 
 import xml.etree.ElementTree as ET
-import pickle
+import cPickle as pickle
 import sys
 
 
