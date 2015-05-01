@@ -3,6 +3,7 @@
 # combines pieces into final command-line execution
 
 import sys
+import subprocess
 from gen_dict import *
 
 execfile('gen_dict.py')
@@ -23,3 +24,5 @@ if result == 'success':
 	print "Route: %s" % ",".join("%1.4f,%1.4f" % (i[0],i[1]) for i in route)
 else:
 	print "Failed (%s)" % result
+
+subprocess.call(["rm","crimeweights.txt"])
