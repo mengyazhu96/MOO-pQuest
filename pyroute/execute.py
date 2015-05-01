@@ -53,14 +53,6 @@ start_lon = start_cords[1]
 end_lat = end_cords[0]
 end_lon = end_cords[1]
 
-from cordtonode import cordtonode
-
-start_node = cordtonode(start_lat, start_lon, sys.argv[1])
-end_node = cordtonode(end_lat, end_lon, sys.argv[1])
-
-print start_node
-print end_node
-
 # these have to be loaded in later, because route depends on loadOsm 
 #	which depends on the modified crimeweights dictionary
 from route import Router
@@ -68,6 +60,12 @@ from loadOsm import *
 
 # load in the given OSM file
 data = LoadOsm(sys.argv[1])
+
+start_node = data.findNode(start_lat, start_lon, 'foot')
+end_node = data.findNode(end_lat, end_lon, 'foot')
+
+print start_node
+print end_node
 
 # do the routing
 router = Router(data)
