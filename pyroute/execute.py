@@ -8,6 +8,7 @@ import sys
 import subprocess
 from gen_dict import *
 from math import sin, cos, atan2, sqrt, pi
+from addtocord import *
 
 # calculates the distance in miles between two lat lon coordinates
 def dist_miles(start,end):
@@ -40,6 +41,26 @@ weight_crime(safety_input,ignore)
 
 print
 
+start = str(raw_input('Please input the address of your origin: '))
+end = str(raw_input('Please input the address of your destination: '))
+
+start_cords = addtocord(start)
+end_cords = addtocord(end)
+
+
+start_lat = start_cords[0]
+start_lon = start_cords[1]
+end_lat = end_cords[0]
+end_lon = end_cords[1]
+
+from cordtonode import cordtonode
+
+start_node = cordtonode(start_lat, start_lon, sys.argv[1])
+end_node = cordtonode(end_lat, end_lon, sys.argv[1])
+
+print start_node
+print end_node
+
 # these have to be loaded in later, because route depends on loadOsm 
 #	which depends on the modified crimeweights dictionary
 from route import Router
@@ -50,11 +71,9 @@ data = LoadOsm(sys.argv[1])
 
 # do the routing
 router = Router(data)
-start = int(sys.argv[2])
-end = int(sys.argv[3])
-result, route = router.doRouteAsLL(start, end, 'foot')
+result, route = router.doRouteAsLL(start_node, end_node, 'foot')
 
-abs_dist = dist_miles(router.coords(start),router.coords(end))
+abs_dist = dist_miles(router.coords(start_node),router.coords(end_node))
 
 print "Your destination is {} miles away".format(abs_dist)
 dist_input = raw_input('Please enter, in miles, the maximum distance you want to traverse (leave blank if unnecessary): ')

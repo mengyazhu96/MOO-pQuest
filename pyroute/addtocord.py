@@ -6,32 +6,26 @@ from json import loads
 
 #move these
 #ABSTRACT START
-start_address = raw_input('Input starting address: ')
 
-end_address = raw_input('Input destination: ')
-#ABSTRACT END
 
-# api call here
+def addtocord (address):
+    #api_url_start = Request('http://open.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluu82q0bnl%2Caa%3Do5-94yxlf&location={}'.format(quote(address)))
+    # api call here
+    #https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=API_KEY
 
-api_url_start = Request('http://open.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluu82q0bnl%2Caa%3Do5-94yxlf&location={}'.format(quote(start_address)))
+    api_url_start = Request('https://maps.googleapis.com/maps/api/geocode/json?address={}&key=AIzaSyC7O0omzfxKfWfx_7kVZrvAWk60Ld0Y_7M'.format(quote(address)))
+    try:
+        google_reply_start = urlopen(api_url_start)
 
-api_url_end = Request('http://open.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluu82q0bnl%2Caa%3Do5-94yxlf&location={}'.format(quote(end_address)))
+        latlong_start = google_reply_start.read()
+      
+        data_start = loads(latlong_start)
 
-try:
-    mapquest_reply_start = urlopen(api_url_start)
-    mapquest_reply_end = urlopen(api_url_end)
+        print data_start['results'][0]['geometry']['location']['lat']
+        print data_start['results'][0]['geometry']['location']['lng']
 
-    latlong_start = mapquest_reply_start.read()
-    latlong_end = mapquest_reply_end.read()
-  
-    data_start = loads(latlong_start)
-    data_end = loads(latlong_end)
+        return (data_start['results'][0]['geometry']['location']['lat'], data_start['results'][0]['geometry']['location']['lng'])
 
-    print data_start['results'][0]['locations'][0]['latLng']['lat']
-    print data_start['results'][0]['locations'][0]['latLng']['lng']
-
-    print data_end['results'][0]['locations'][0]['latLng']['lat']
-    print data_end['results'][0]['locations'][0]['latLng']['lng']
-  
-except URLError, error:
-     print 'Error: ', error
+      
+    except URLError, error:
+         print 'Error: ', error
