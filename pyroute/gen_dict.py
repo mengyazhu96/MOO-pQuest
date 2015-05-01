@@ -18,7 +18,7 @@ CrimeWeights = {
 def weight_crime(n,ignores):
     # if the user inputs with the ranges
 	if n > 1 and n <= 10:
-		crime_factor = (40. - n) / 40.
+		crime_factor = (10.1 - n) / 10.1
 		for k,v in CrimeWeights.items():
 			print v, v*crime_factor
 			CrimeWeights[k] = v * crime_factor
