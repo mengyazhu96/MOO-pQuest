@@ -1,20 +1,25 @@
 # MOO-pQuest
 
-Navigational tools do not address the safety of a given route. When walking in New York City, a tool like Google Maps will provide the most efficient route, but it will not account for the safety of the given path.
+Testing Notes
+-------------
+OSM data is often very inefficient, as is PyRoute. We have provided you with three data files: small.osm, smallway.osm, and manway.osm. The first of these, smallway.osm, is the processed version of small.osm, and these two files only contain 100th-120th streets in Manhattan. All of Manhattan with crime parameters is contained in manway.osm; we did not give you the origin file for Manhattan because (a) it is very large and (b) it took a very long time to run.
 
-To fix this problem, we plan on integrating historical crime data with open source map navigation technology to generate a route-calculating algorithm that will account for path safety. We hope to develop an effective navigation tool for New York City that will take parameters for safety in determining efficient walking directions.
+Data Processing
+---------------
+From within the MOO-pQuest folder, run python process.py [path/to/osm/file] [path/to/new/osm/file]. The same effect can be achieved in multiple steps by using smalldict.py, crimetonode.py, and nodetoway.py (in that order) using the command line arguments detailed within each file. Within data/small are examples of the .txt outputs that are created through this process.
 
-This is a final project for CS51.
+Routing
+-------
+From within the pyroute subfolder, run python execute.py [path/to/processed/osm]. You will then be met with a series of prompts detailing:
+1. crime types (optional)
+2. safety importance on a scale of 1 to 10
+3. start and end addresses
+4. maximum distance to walk (optional)
 
-Code and Data Acknowledgments
------------------------------
-* OSM data from https://www.openstreetmap.org.
-* Crime data from http://maps.nyc.gov/crime/, extracted to JSON format from http://thomaslevine.com/!/nyc-crime-map/.
-* Routing algorithm is Pyroute, https://wiki.openstreetmap.org/wiki/Pyroute.
+Note that failing to meet the specifications for the prompts will result in that parameter being ignored.
 
-Algorithm Breakdown
--------------------
-* Crime data is in crimedata.geojson. We parse this into a Python dictionary in parsedata.py, which outputs crimedict.txt (in pickle format). 
-* This dictionary is then read into insertcrime.py, which adds a crime tag to either nodes or ways (unimplemented). OSM data (small test area) is in data.osm. insertcrime.py parses the OSM data through the ElementTree XML API.
-* We then modify Pyroute to account for the new weights (pyroute/weights.py).
-
+Reasons for failing may include:
+* typos in the input addresses (3)
+* not providing a number for safety importance (2)
+* not typing crime types exactly (1)
+* (4) is greater than the distance traversed by the calculated path, but not greater than the absolute distance between the origin and destination
