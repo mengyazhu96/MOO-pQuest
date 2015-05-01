@@ -91,7 +91,7 @@ if result == 'success':
 
 	if (max_dist is None) or max_dist > distance:
 		print
-		print "Route: %s" % ",".join("%1.4f,%1.4f" % (i[0],i[1]) for i in route)
+		print "Route: %s" % "\n".join("%1.4f,%1.4f" % (i[0],i[1]) for i in route)
 		print
 		print "Distance traveled: {0:.3f} miles, {1:.2f} minutes".format(distance, (distance / 0.051667))
 	else:
