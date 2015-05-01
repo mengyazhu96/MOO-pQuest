@@ -171,6 +171,8 @@ class LoadOsm(handler.ContentHandler):
       highway = self.equivalent(self.tags.get('highway', ''))
       railway = self.equivalent(self.tags.get('railway', ''))
       oneway = self.tags.get('oneway', '')
+
+      # store all of a way's crimes
       crimes = []
       for k in self.tags:
           if k == 'crime':
@@ -194,6 +196,8 @@ class LoadOsm(handler.ContentHandler):
           for routeType in self.routeTypes:
             if(access[routeType]):
               weight = getWeight(routeType, highway)
+
+              # account for crimes while biking or walking
               if routeType == 'cycle' or routeType == 'foot':
                     for crime in crimes:
                         weight *= CrimeWeights[crime]

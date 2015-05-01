@@ -35,8 +35,6 @@ import sys
 import math 
 from loadOsm import *
 
-#execfile(os.path.join(os.path.dirname(__file__), "gen_dict.py"))
-
 class Router:
   def __init__(self, data):
     self.data = data
