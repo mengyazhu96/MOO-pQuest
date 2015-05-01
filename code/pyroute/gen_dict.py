@@ -20,7 +20,6 @@ def weight_crime(n,ignores):
 	if n > 1 and n <= 10:
 		crime_factor = (10.1 - n) / 10.1
 		for k,v in CrimeWeights.items():
-			print v, v*crime_factor
 			CrimeWeights[k] = v * crime_factor
 	else:
 		if n != 1:

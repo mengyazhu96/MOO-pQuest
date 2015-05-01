@@ -38,9 +38,9 @@ from loadOsm import *
 class Router:
   def __init__(self, data):
     self.data = data
-  def coords(self,n):
-    """Returns the lat/lon coordinates a node"""
-    return self.data.nodes[n]
+  def coords(self,n_id):
+    """Returns the lat/lon coordinates of a node"""
+    return self.data.nodes[n_id]
   def distance(self,n1,n2):
     """Calculate distance between two nodes"""
     lat1 = self.data.nodes[n1][0]

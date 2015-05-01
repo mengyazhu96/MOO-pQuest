@@ -99,8 +99,7 @@ for (lati,longi),val in crimedict.items():
                 nodedict[id] = []
                 for crime in val:
                     nodedict[id].append((crime['CR'],crime['id']))
-
-
+                    
 
 """PUT CRIMES IN WAYS"""
 # get al the ways in the OSM file

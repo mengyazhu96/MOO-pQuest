@@ -16,10 +16,10 @@ From within the pyroute subfolder, run python execute.py [path/to/processed/osm]
 3. start and end addresses
 4. maximum distance to walk (optional)
 
-Note that failing to meet the specifications for the prompts will result in that parameter being ignored.
-
 Reasons for failing may include:
 * typos in the input addresses (3)
 * not providing a number for safety importance (2)
 * not typing crime types exactly (1)
 * (4) is greater than the distance traversed by the calculated path, but not greater than the absolute distance between the origin and destination
+
+Note that failing to meet the specifications for the prompts will result in that parameter being ignored. Also note that the address input will map to the nearest routeable node, and so may not be completely accurate.

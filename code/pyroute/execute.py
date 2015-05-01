@@ -47,7 +47,6 @@ end = str(raw_input('Please input the address of your destination: '))
 start_cords = addtocord(start)
 end_cords = addtocord(end)
 
-
 start_lat = start_cords[0]
 start_lon = start_cords[1]
 end_lat = end_cords[0]
@@ -64,8 +63,8 @@ data = LoadOsm(sys.argv[1])
 start_node = data.findNode(start_lat, start_lon, 'foot')
 end_node = data.findNode(end_lat, end_lon, 'foot')
 
-print start_node
-print end_node
+print 'Node IDs: ',start_node,'to',end_node
+print
 
 # do the routing
 router = Router(data)
@@ -73,7 +72,7 @@ result, route = router.doRouteAsLL(start_node, end_node, 'foot')
 
 abs_dist = dist_miles(router.coords(start_node),router.coords(end_node))
 
-print "Your destination is {} miles away".format(abs_dist)
+print "Your destination is {0:.3f} miles away.".format(abs_dist)
 dist_input = raw_input('Please enter, in miles, the maximum distance you want to traverse (leave blank if unnecessary): ')
 max_dist = None
 if dist_input == '':
@@ -94,7 +93,7 @@ if result == 'success':
 		print
 		print "Route: %s" % ",".join("%1.4f,%1.4f" % (i[0],i[1]) for i in route)
 		print
-		print "Distance traveled: {} miles".format(distance)
+		print "Distance traveled: {0:.3f} miles, {1:.2f} minutes".format(distance, (distance / 0.051667))
 	else:
 		print "Could not find short enough route."
 
