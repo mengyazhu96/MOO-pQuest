@@ -69,7 +69,6 @@ class Router:
     # Start by queueing all outbound links from the start node
     blankQueueItem = {'end':-1,'distance':0,'nodes':str(start)}
     try:
-        print self.data.routing[transport][start]
         for i, weight in self.data.routing[transport][start].items():
             self.addToQueue(start,i, blankQueueItem, weight)
     except KeyError:
@@ -130,22 +129,3 @@ class Router:
       count = count + 1
     else:
       self.queue.append(queueItem)
-
-
-#if __name__ == "__main__":
-
-#	data = LoadOsm(sys.argv[1])
-
-#	try:
-#		transport = sys.argv[4]
-#	except IndexError:
-		#transport = 'cycle'
-		#print "WARNING: No transport type specified, assuming \"%s\"" % transport
-
-	#router = Router(data)
-#	result, route = router.doRouteAsLL(int(sys.argv[2]), int(sys.argv[3]), transport)
-
-#	if result == 'success':
-#		print "Route: %s" % ",".join("%1.4f,%1.4f" % (i[0],i[1]) for i in route)
-#	else:
-#		print "Failed (%s)" % result

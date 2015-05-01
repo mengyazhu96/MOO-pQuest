@@ -2,10 +2,9 @@
 #
 # DATA PROCESSING STEP 1
 # 
-# uses the same methodology as ../parsecrime.py to generate a crime dictionary
-#     limited to our input OSM file, small.osm
+# generates a crime dictionary limited to our input OSM file
 # command line inputs: 1) OSM file with bounds 2) name of .txt file to be outputted
-#             for us:    small.osm                smalldict.txt
+#           for small:    small.osm               smalldict.txt
 
 import json
 import cPickle as pickle
@@ -15,6 +14,7 @@ import sys
 # open the geoJSON file
 with open('../crimedata.geojson') as data_file:    
     data = json.load(data_file)
+crimes = data['features']
 
 # set up command line arguments
 osm = sys.argv[1]
@@ -28,9 +28,8 @@ maxlat = float(bounds['maxlat'])
 minlon = float(bounds['minlon'])
 maxlon = float(bounds['maxlon'])
 
-# initialize our dictionary
+# initialize our output dictionary
 crimedict = {}
-crimes = data['features']
 
 # iterate through the geoJSON data
 for i in range(len(crimes)):
@@ -51,6 +50,8 @@ for i in range(len(crimes)):
         
         # gets the dictionary of the crime's properties
         properties = crime['properties']
+
+        # sets a unique id for this crime
         properties['id'] = i
         
         # if this coordinate is already in our dict (if more than one crime has occurred here)

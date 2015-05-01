@@ -6,15 +6,14 @@
 #     a way if a crime node is in it; returns our final OSM data, smallway.osm
 #
 # command line inputs: 1) node dictionary dump file 2) OSM data set 3) output OSM file
-#         for small:    1) nodedict.txt    2) small.osm            3) smallway.osm
+#           for small: 1) nodedict.txt              2) small.osm    3) smallway.osm
 #
 # final product: 
 #     <way blahblahblah>
 #        <nd ref='the node id'>
 #            and the rest of its nodes
 #        <tag uselesstags>
-#        <tag k = 'crime0' v = 'CRIME TYPE, id'>
-#        <tag crime='CRIME TYPE'>
+#        <tag k = 'crime' v = 'CRIME TYPE id'>
 #     </way>
 
 import cPickle as pickle

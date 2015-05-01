@@ -6,10 +6,17 @@ import sys
 import subprocess
 from gen_dict import *
 
-execfile('gen_dict.py')
-
+# Parse user specification of safety importance.
 safety_input = int(raw_input('Please enter safety importance on a scale of 1 to 10: '))
-weight_crime(safety_input)
+
+# Parse user specification of crime types to ignore.
+for k in CrimeWeights:
+	print k
+
+ignore_input = raw_input("Please select any crime types from above to ignore, separated by commas: ")
+ignore = [i.strip() for i in ignore_input.split(',')]
+
+weight_crime(safety_input,ignore)
 
 from route import Router
 from loadOsm import *

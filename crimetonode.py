@@ -1,20 +1,18 @@
-# crimetonode.py (nodedict version - see junk for other)
+# crimetonode.py
 #
 # DATA PROCESSING STEP 2
 # 
 # takes in an OSM file, gets the nodes from that file, and then creates a dictionary
 #    that relates a node to a crime using the node's lat/long and the crime's lat/long
 #
-# command line inputs: 1) crime dictionary dump file 
-#                        2) OSM data set 3) output dictionary dump file
-# for small: 1) smalldict.txt 2) small.osm 3) nodedict.txt
+# command line: 1) crime dictionary dump file 2) OSM data set 3) output dictionary dump file
+#    for small: 1) smalldict.txt              2) small.osm    3) nodedict.txt
 #
-# final product: nodedict[nodeid] = [list of crimes (only their types)]
+# final product: nodedict[nodeid] = [list of crimes (only their types and ids)]
 
 import xml.etree.ElementTree as ET
 import cPickle as pickle
 import sys
-
 
 # get our crime data dictionary
 output = open(sys.argv[1], 'rb')
@@ -48,11 +46,13 @@ for (lati,longi),val in crimedict.items():
         # compare coordinates
         if comp_coords(lati,lat) and comp_coords(longi,lon):
             
+            # check to see if this node is already in our dictionary
             if id in nodedict:
                 for crime in val:
                     nodedict[id].append((crime['CR'],crime['id']))
 
             else:
+                # otherwise we need to initialize the list
                 nodedict[id] = []
                 for crime in val:
                     nodedict[id].append((crime['CR'],crime['id']))
