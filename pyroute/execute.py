@@ -9,6 +9,20 @@ import subprocess
 from gen_dict import *
 from math import sin, cos, atan2, sqrt, pi
 
+# calculates the distance in miles between two lat lon coordinates
+def dist_miles(start,end):
+	start_lat = start[0]
+	start_lon = start[1]
+	end_lat = end[0]
+	end_lon = end[1]
+
+	dlat = abs(end_lat - start_lat) * (pi / 180)
+	dlon = abs(end_lon - start_lon) * (pi / 180)
+
+	a = (sin(dlat / 2.0))**2 + (cos(end_lat * (pi / 180)) * cos(start_lat * (pi / 180)) * (sin(dlon / 2.0))**2)
+	c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a))
+	return (3963.1676) * c
+
 # parse user specification of crime types to ignore
 for k in CrimeWeights:
 	print k
@@ -36,10 +50,13 @@ data = LoadOsm(sys.argv[1])
 
 # do the routing
 router = Router(data)
-result, route = router.doRouteAsLL(int(sys.argv[2]), int(sys.argv[3]), 'foot')
-abs_dist = router.distance(int(sys.argv[2]),int(sys.argv[3]))
+start = int(sys.argv[2])
+end = int(sys.argv[3])
+result, route = router.doRouteAsLL(start, end, 'foot')
 
-#print "Your destination is {} miles away".format(abs_dist)
+abs_dist = dist_miles(router.coords(start),router.coords(end))
+
+print "Your destination is {} miles away".format(abs_dist)
 dist_input = raw_input('Please enter, in miles, the maximum distance you want to traverse (leave blank if unnecessary): ')
 max_dist = None
 if dist_input == '':
@@ -53,15 +70,8 @@ else:
 if result == 'success':
 	# compute distance
 	distance = 0.0
-	for i in range(len(route)):
-		if i != (len(route) - 1):
-			dlat = abs(route[i+1][0] - route[i][0]) * (pi / 180)
-			dlon = abs(route[i+1][1] - route[i][1]) * (pi / 180)
-
-			# convert latlong into miles
-			a = (sin(dlat / 2.0))**2 + (cos(route[i+1][0] * (pi / 180)) * cos(route[i][0] * (pi / 180)) * (sin(dlon / 2.0))**2)
-			c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a))
-			distance += ((3963.1676) * c)
+	for i in range(len(route) - 1):
+		distance += dist_miles(route[i],route[i+1])
 
 	if (max_dist is None) or max_dist > distance:
 		print
