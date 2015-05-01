@@ -1,4 +1,4 @@
-# MOO-pQuest
+# MOO-pQuest Usage Instructions
 
 Testing Notes
 -------------
