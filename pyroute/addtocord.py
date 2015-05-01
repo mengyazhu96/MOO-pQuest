@@ -27,11 +27,11 @@ try:
     data_start = loads(latlong_start)
     data_end = loads(latlong_end)
 
-    print data_start['results'][0]['locations'][0]['latLng']['lng']
     print data_start['results'][0]['locations'][0]['latLng']['lat']
+    print data_start['results'][0]['locations'][0]['latLng']['lng']
 
-    print data_end['results'][0]['locations'][0]['latLng']['lng']
     print data_end['results'][0]['locations'][0]['latLng']['lat']
+    print data_end['results'][0]['locations'][0]['latLng']['lng']
   
 except URLError, error:
      print 'Error: ', error

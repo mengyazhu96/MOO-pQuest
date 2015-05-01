@@ -28,4 +28,3 @@ def weight_crime(n):
 	pickle.dump(CrimeWeights, output)
 	output.close()
 	return CrimeWeights
-

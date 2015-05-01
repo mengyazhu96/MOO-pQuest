@@ -139,13 +139,13 @@ class Router:
 #	try:
 #		transport = sys.argv[4]
 #	except IndexError:
-		transport = 'cycle'
-		print "WARNING: No transport type specified, assuming \"%s\"" % transport
+		#transport = 'cycle'
+		#print "WARNING: No transport type specified, assuming \"%s\"" % transport
 
-	router = Router(data)
-	result, route = router.doRouteAsLL(int(sys.argv[2]), int(sys.argv[3]), transport)
+	#router = Router(data)
+#	result, route = router.doRouteAsLL(int(sys.argv[2]), int(sys.argv[3]), transport)
 
-	if result == 'success':
-		print "Route: %s" % ",".join("%1.4f,%1.4f" % (i[0],i[1]) for i in route)
-	else:
-		print "Failed (%s)" % result
+#	if result == 'success':
+#		print "Route: %s" % ",".join("%1.4f,%1.4f" % (i[0],i[1]) for i in route)
+#	else:
+#		print "Failed (%s)" % result
