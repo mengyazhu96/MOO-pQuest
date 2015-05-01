@@ -4,8 +4,6 @@
 # Takes in a lat long coordinate and outputs a node ID which correponds
 # 
 # 
-# Command line inputs: 1. Latitude point. 2. Longitude point 3. OSM data set
-# 
 # 
 # 
 
